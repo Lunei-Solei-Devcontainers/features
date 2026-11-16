@@ -1,6 +1,16 @@
 {
     "name": "GPG Connect",
     "id": "gpg-connect",
-    "version": "1.0.0"
-    "description": "Connects GPG's extra socket on the host machine to the devcontainer to allow for signing of git commits."
+    "version": "1.0.0",
+    "description": >
+        "A custom devcontainer feature that allows the importing of public GPG keys from provided source files on the host machine.
+        This feature is two-fold and is separated into the exporting and importing of GPG keys. The first part of the process is exporting 
+        the public GPG keys from the host machine. The second part of this process is importing the keys and that's where this feature comes in. 
+        This feature reads these files and attempts to automatically configure git to use any provided key(s) for signing.",
+    "options": {
+        "workspace": {
+            "type": "string",
+            "description": "The place to look for the relevant 'tmp' directory."
+        }
+    }
 }
