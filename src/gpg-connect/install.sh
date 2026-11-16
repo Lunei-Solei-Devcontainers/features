@@ -1,4 +1,6 @@
 #!/bin/sh
+
+# Usage: ./install.sh <workspace-folder-name>
 set -e
 
 echo "Activating feature 'gpg-connect'"
