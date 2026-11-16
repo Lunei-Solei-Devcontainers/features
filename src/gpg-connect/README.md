@@ -12,6 +12,7 @@ and attempts to automatically configure git to use any provided key(s) for signi
 * [Contributing](#contributing)
     * [Contributors](#contributors)
 * [Code of Conduct](#code-of-conduct)
+* [License](#license)
 
 ## Usage
 1) Create the relevant export files containing the key(s) you wish to import. This can be done via:
