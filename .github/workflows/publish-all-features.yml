@@ -1,0 +1,46 @@
+name: Publish All Features
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - src/**
+      - .github/workflows/publish-all-features.yml
+  workflow_dispatch: { }
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+  
+jobs:
+  test:
+    name: Test Features
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      
+      - name: Install devcontainer CLI
+        run: npm install -g @devcontainers/cli
+
+      # Run test/<feature>/test.sh for each feature
+      - name: Test All Features
+        run: >
+          devcontainer features test
+          --project-folder .
+          --base-image mcr.microsoft.com/devcontainers/base:ubuntu
+
+  publish:
+    name: Publish to ghcr.io
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Publish Features
+        uses: devcontainers/action@v1
+        with:
+          publish-features: 'true'
+          base-path-to-features: './src'
+          generate-docs: 'false'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
