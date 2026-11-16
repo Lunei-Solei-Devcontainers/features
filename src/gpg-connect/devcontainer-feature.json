@@ -1,6 +1,6 @@
 {
     "name": "GPG Connect",
     "id": "gpg-connect",
-    "version": "1"
+    "version": "1.0.0"
     "description": "Connects GPG's extra socket on the host machine to the devcontainer to allow for signing of git commits."
 }
