@@ -39,7 +39,7 @@ check "import: signing key chosen via git email" case_email_match
 check "import: single exported key is used as fallback" case_single_key_fallback
 check "import: ambiguous keys import, but do not enable signing" case_ambiguous_no_signing
 check "import: partial email does not match a key" case_email_requires_whole_address
-check "import: meta file without trailing newline" meta_without_trailing_newline
+check "import: meta file without trailing newline" case_meta_without_trailing_newline
 check "import: removes temp files afterwards" case_cleans_up
 check "import: keys without meta are imported only" case_keys_without_meta
 check "import: exits 0 when nothing was exported" case_no_export_files
