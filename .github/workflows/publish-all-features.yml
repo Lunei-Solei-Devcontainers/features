@@ -8,6 +8,10 @@ on:
       - .github/workflows/publish-all-features.yml
   workflow_dispatch: { }
 
+permissions:
+  contents: write
+  packages: write
+
 concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: true
