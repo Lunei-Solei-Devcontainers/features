@@ -1,11 +1,8 @@
 #!/bin/sh
 
-# Usage: ./install.sh <workspace-folder-name>
 set -e
 
 echo "Attempting to import GPG keys."
-
-: "${1:?Usage: $0 <workspace-folder-name>}"
 
 TMP_DIR="${PWD}/tmp"
 KEY_FILE="${TMP_DIR}/.gpg-export.gpg"
