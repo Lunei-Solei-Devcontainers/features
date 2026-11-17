@@ -3,11 +3,12 @@
 # Usage: ./install.sh <workspace-folder-name>
 set -e
 
-echo "Activating feature 'gpg-connect'"
+echo "Attempting to import GPG keys."
 
 : "${1:?Usage: $0 <workspace-folder-name>}"
 
-TMP_DIR="/workspaces/${1}/tmp"
+WORK_DIR="${1:-$PWD}"
+TMP_DIR="${WORK_DIR}/tmp"
 KEY_FILE="${TMP_DIR}/.gpg-export.gpg"
 META_FILE="${TMP_DIR}/.gpg-export.meta"
 
