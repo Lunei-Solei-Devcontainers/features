@@ -32,5 +32,5 @@ to be mounted as the container's workspace.
 > ```
 
 > [!TIP]
-> `devcontainer` is the name of the default user when using [Lunei Solei Devcontainers images]((https://github.com/lunei-solei-devcontainers/images). You
+> `devcontainer` is the name of the default user when using [Lunei Solei Devcontainers images](https://github.com/lunei-solei-devcontainers/images). You
 > can change this value to match your custom `remoteUser` if you wish.
