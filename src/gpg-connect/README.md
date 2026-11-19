@@ -18,6 +18,19 @@ to be mounted as the container's workspace.
 {
     "features": {
         "ghcr.io/lunei-solei-devcontainers/features/gpg-connect:1": { }
-    }
+    },
+    "mounts": [
+        "source=<PATH_TO_YOUR_GPG_AGENT_EXTRA_SOCKET>,target=/home/devcontainer/.gnupg/S.gpg-agent,type=bind"
+    ]
 }
 ```
+> [!NOTE]
+> The path to your GPG agent's extra socket will vary depending on which OS your local machine is running. To obtain this location, you can run the following
+> in a terminal:
+> ```
+> gpgconf --list-dir agent-extra-socket
+> ```
+
+> [!TIP]
+> `devcontainer` is the name of the default user when using [Lunei Solei Devcontainers images]((https://github.com/lunei-solei-devcontainers/images). You
+> can change this value to match your custom `remoteUser` if you wish.
