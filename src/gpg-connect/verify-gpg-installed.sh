@@ -2,7 +2,7 @@
 set -e
 
 # Skip if already installed
-if command -verbose gpg >/dev/null 2>&1; then
+if command -v gpg >/dev/null 2>&1; then
   echo "gpg already installed"
   exit 0
 fi
@@ -33,8 +33,8 @@ elif command -v dnf >/dev/null 2>&1; then
   dnf clean all
 elif command -v microdnf >/dev/null 2>&1; then
   # Older RHEL / CentOS
-  yum install -y gnupg2
-  yum clean all
+  microdnf install -y gnupg2
+  microdnf clean all
 else
   # No known package manager exists
   echo "Error: no supported package manager found install gnupg manually, then run this feature's 'import-gpg-keys.sh' script manually. https://github.com/lunei-solei-devcontainers/features/tree/main/src/gpg-connect/import-gpg-keys.sh"
