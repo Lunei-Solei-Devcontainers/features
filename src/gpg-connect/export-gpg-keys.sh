@@ -29,7 +29,7 @@ SEL_FILE="${TMP_DIR}/.gpg-export.sel"
 # Cleanup function to remove output files
 cleanup_outputs() {
     rm -f "$OUTPUT_FILE" "$META_FILE"
-    rmdir -f "${TMP_DIR}"
+    rmdir "${TMP_DIR}" 2>/dev/null || true
 }
 
 cleanup_work() {
@@ -75,7 +75,7 @@ while IFS=: read -r type validity _ _ _ _ _ _ _ fpr_uid _; do
             fi
             ;;
         uid)
-            if [ "$skip_key" -eq 0 ] && [ -z "$current_fpr" ]; then
+            if [ "$skip_key" -eq 0 ] && [ -z "$current_uid" ]; then
                 current_uid=$(printf '%s' "$fpr_uid" | sed 's/\\x3a/:/g')
             fi
             ;;
@@ -105,9 +105,9 @@ echo "Keys available on host"
 echo ""
 
 n=0
-while IFS=$TAB" read -r fpr uid; do
+while IFS="$TAB" read -r fpr uid; do
     n=$((n + 1))
-    short=$(printf '%s' "$fpr" | awk '{ print substr($0, length($0) - 15 }')
+    short=$(printf '%s' "$fpr" | awk '{ print substr($0, length($0) - 15) }')
     printf "    %d %s %s\n" "$n" "$short" "$uid"
 done < "$KEYS_FILE"
 
@@ -121,7 +121,7 @@ printf "    > "
 SELECTION=""
 got_input=1
 if command -v timeout >/dev/null 2>&1 && timeout --foreground 1 true >/dev/null 2>&1; then
-    if ! SELECTION=$(timeout --foreground 60 sh -c 'IFS= read -r line && printf "s" "$line"); then
+    if ! SELECTION=$(timeout --foreground 60 sh -c 'IFS= read -r line && printf "%s" "$line"'); then
         got_input=0
     fi
 else
@@ -172,7 +172,7 @@ else
     set +f
 fi
 
-COUNT=$(wc-l < "$SEL_FILE" | tr -d ' ')
+COUNT=$(wc -l < "$SEL_FILE" | tr -d ' ')
 if [ "$COUNT" -eq 0 ]; then
     echo ""
     echo "No valid keys selected. Nothing will be imported."
@@ -192,6 +192,6 @@ gpg --export "$@" > "$OUTPUT_FILE"
 # Write metadata for each selected key (fingerprint<TAB>uid)
 cp "$SEL_FILE" "$META_FILE"
 
-echo "Exported to "$OUTPUT_FILE"
+echo "Exported to $OUTPUT_FILE"
 echo "Keys will be imported when the container starts."
 echo ""
